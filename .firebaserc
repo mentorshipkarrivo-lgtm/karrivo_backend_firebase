@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "karrivo-f64dd",
+    "karrivo": "karrivo-f64dd"
+  },
+  "targets": {},
+  "etags": {}
+}

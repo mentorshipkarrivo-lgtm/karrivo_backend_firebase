@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Excel Upload</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: auto;
+    }
+
+    input[type="file"] {
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 8px 16px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .response {
+      margin-top: 20px;
+      background: #f4f4f4;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .error {
+      color: red;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Upload Excel File</h2>
+
+    <!-- Add name="file" -->
+    <input type="file" id="fileInput" name="file" accept=".xls,.xlsx" />
+    <br />
+    <button id="uploadBtn">Upload</button>
+
+    <div id="uploading" style="display:none;">Uploading...</div>
+    <div id="error" class="error"></div>
+    <div id="response" class="response"></div>
+  </div>
+
+  <script>
+    const fileInput = document.getElementById("fileInput");
+    const uploadBtn = document.getElementById("uploadBtn");
+    const uploadingDiv = document.getElementById("uploading");
+    const errorDiv = document.getElementById("error");
+    const responseDiv = document.getElementById("response");
+
+    uploadBtn.addEventListener("click", async () => {
+      const file = fileInput.files[0];
+      errorDiv.textContent = "";
+      responseDiv.textContent = "";
+
+      if (!file) {
+        errorDiv.textContent = "Please select an Excel file first!";
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("file", file); // Must match multer field name
+
+      try {
+        uploadingDiv.style.display = "block";
+
+        const res = await fetch(
+          "http://127.0.0.1:5001/karrivo-f64dd/us-central1/api/dataextraction/upload-excel",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+
+        const data = await res.json();
+        uploadingDiv.style.display = "none";
+
+        if (res.ok) {
+          responseDiv.innerHTML = `
+            <strong>Upload Successful!</strong><br/>
+            Total Rows in Excel: ${data.totalRowsInExcel}<br/>
+            Inserted: ${data.inserted}<br/>
+            Duplicates Skipped: ${data.duplicatesSkipped}
+          `;
+        } else {
+          errorDiv.textContent = data.message || "Upload failed!";
+        }
+
+      } catch (err) {
+        uploadingDiv.style.display = "none";
+        console.error(err);
+        errorDiv.textContent = "Server error. Please try again.";
+      }
+    });
+  </script>
+</body>
+
+</html>
