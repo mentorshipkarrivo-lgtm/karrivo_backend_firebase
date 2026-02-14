@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "start": "npm --prefix functions start"
+  },
   "dependencies": {
     "express-async-handler": "^1.2.0"
   }
