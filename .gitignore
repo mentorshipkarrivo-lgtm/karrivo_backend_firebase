@@ -10,6 +10,9 @@ firebase-debug.*.log*
 # Firebase cache
 .firebase/
 
+git add .gitignore
+git commit -m "Remove serviceAccountKey.json and add to .gitignore"
+
 # Firebase config
 
 # Uncomment this if you'd like others to create their own Firebase project.
@@ -67,3 +70,4 @@ node_modules/
 
 # dataconnect generated files
 .dataconnect
+"functions/config/serviceAccountKey.json" 
