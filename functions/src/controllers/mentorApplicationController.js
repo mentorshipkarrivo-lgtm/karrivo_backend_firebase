@@ -463,8 +463,7 @@ class MentorController {
 
     static async getMentorDetails(req, res) {
         try {
-            const { menteeType } = req.body; // get category from request body
-
+            const { menteeType } = req.body; 
             console.log(menteeType, "mentorCategory")
             // Validation
             if (!menteeType) {
