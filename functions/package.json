@@ -8,7 +8,7 @@
     "node": "20"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "node functions/index.js",
     "dev": "firebase emulators:start",
     "serve": "firebase emulators:start --only functions",
     "build": "echo Build step complete",
