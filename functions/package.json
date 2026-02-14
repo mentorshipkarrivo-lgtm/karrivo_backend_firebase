@@ -22,7 +22,7 @@
     "cashfree-pg": "^5.1.0",
     "cors": "^2.8.6",
     "cron": "^4.4.0",
-    "dotenv": "^17.2.3",
+    "dotenv": "^17.3.1",
     "express": "^4.19.2",
     "express-validator": "^7.3.1",
     "firebase-admin": "^12.7.0",
